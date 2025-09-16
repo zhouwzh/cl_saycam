@@ -135,6 +135,19 @@ def train(config, train_dataset, model):
                     loss_text = -(target_text * F.log_softmax(logits_per_text, dim=-1)).sum(dim=1).mean()
                     loss_slot = -(target_slot * F.log_softmax(logits_per_slot, dim=-1)).sum(dim=1).mean()
                     loss = (loss_text + loss_slot) / 2
+                elif config.slot_mode == 'topk2':
+                    # import pdb; pdb.set_trace()
+                    B,K,D = image_features.size()  # B,K,D
+                    sim = (image_features * text_features.unsqueeze(1)).sum(-1)  # B,K
+                    k = 3
+                    topk_values, topk_idx = sim.topk(k, dim=1)  # B,k
+                    
+                    target = torch.zeors_like(sim)  # B,K
+                    for i in range(B):
+                        target[i, topk_idx[i]] = 1.0 / k
+                    loss = -(target * F.log_softmax(sim, dim=-1)).sum(dim=1).mean()
+                else:
+                    raise NotImplementedError
 
             if config.n_gpu > 1: 
                 loss = loss.mean() # mean() to average on multi-gpu parallel training
