@@ -1,0 +1,6 @@
+train_img_dir : '/mnt/wwn-0x5000c500e421004a/yy2694/datasets/train_5fps'
+train_annotation_file : '/home/wz3008/clip/config/train.json'
+val_annotation_file: '/home/wz3008/clip/config/val.json'
+test_annotation_file: '/home/wz3008/clip/config/test.json'
+"vocab": '/home/wz3008/clip/vocab.json'
+"multiple_frames": True

@@ -1,0 +1,15 @@
+# text_encoder config
+# we can work on different text encoders and different embedding types
+"text_encoder":
+  "vocab": '/home/wz3008/clip/vocab.json'
+  "embedding_dim": 512
+  "text_encoder": "embedding"
+  "image_feature_map_dim": 64
+
+"slotcontrast":
+  "config": '/home/wz3008/slotcontrast/configs/saycam.yml'
+  "continue_from": '/home/wz3008/slotcontrast/logs/saycam/2025-08-25-19-07-43_train_saycam_video/checkpoints/step=90615.ckpt'
+  "config_overrides_file": None
+  "config_overrides": None
+  "pooling": "mean"
+  "ret_type": "feat" # feat or slot
